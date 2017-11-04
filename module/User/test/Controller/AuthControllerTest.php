@@ -106,9 +106,6 @@ class AuthControllerTest extends AbstractHttpControllerTestCase
       'username' => 'test_user',
       'email' => 'test_email@testdomain.com',
       'password' => 'test_password',
-      'full_name' => '',
-      'birthday' => '',
-      'gender' => '',
     ];
     $this->dispatch('/signup', 'POST', $postData);
     $this->assertResponseStatusCode(200);
