@@ -1,0 +1,40 @@
+<?php
+$title = 'Log in';
+$this->headTitle($title);
+?>
+<?php
+$username = $form->get('username');
+$username->setAttribute('class', 'form-control');
+$username->setAttribute('placeholder', 'Username');
+$password = $form->get('password');
+$password->setAttribute('class', 'form-control');
+$password->setAttribute('placeholder', 'Password');
+$submit = $form->get('submit');
+$submit->setAttribute('class', 'btn btn-primary');
+$form->setAttribute('action', $this->url('auth', ['action' => 'login']));
+$form->prepare();
+?>
+
+<div class="border border-primary rounded px-5 py-4 w-50 mt-5 mx-auto">
+<h1>Log In</h1>
+<?= $this->form()->openTag($form) ?>
+<?php if (isset($errors)) { ?>
+    <ul class="border border-danger rounded px-3 py-2">
+    <?php foreach ($errors as $error) {?>
+    <li class="text-danger"><?= $error ?></li>
+    <?php } ?>
+    </ul>
+<?php } ?>
+<div class="form-group">
+  <?= $this->formLabel($username) ?>
+  <?= $this->formElement($username) ?>
+  <?= $this->formElementErrors()->render($username, ['class' => 'help-block']) ?>
+</div>
+<div class="form-group">
+  <?= $this->formLabel($password) ?>
+  <?= $this->formElement($password) ?>
+  <?= $this->formElementErrors()->render($password, ['class' => 'help-block']) ?>
+</div>
+<?= $this->formSubmit($submit) ?>
+<?= $this->form()->closeTag() ?>
+</div>

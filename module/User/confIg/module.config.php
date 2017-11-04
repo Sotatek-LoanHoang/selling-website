@@ -13,8 +13,8 @@ return [
     ],
     'router' => [
         'routes' => [
-            'user' => [
-                'type' => Segment::class,
+            'get' => [
+                'type' => 'segment',
                 'options' => [
                     'route' => '/users[/:id]',
                     'constraints' => [
@@ -22,6 +22,20 @@ return [
                     ],
                     'defaults'=> [
                         'controller' => Controller\UserController::class,
+                        'action' => 'index',
+                    ],
+                ],
+            ],
+            'auth' => [
+                'type' => 'segment',
+                'options' => [
+                    'route' => '/:action',
+                    'constraints' => [
+                        'action' => 'login|signup|logout',
+                    ],
+                    'defaults'=> [
+                        'controller' => Controller\AuthController::class,
+                        'action' => 'login',
                     ],
                 ],
             ],
