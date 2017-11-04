@@ -1,0 +1,65 @@
+<?php
+$title = 'Sign up';
+$this->headTitle($title);
+?>
+<?php
+$username = $form->get('username');
+$username->setAttribute('class','form-control');
+$username->setAttribute('placeholder','Username');
+$password = $form->get('password');
+$password->setAttribute('class','form-control');
+$password->setAttribute('placeholder','Password');
+$email = $form->get('email');
+$email->setAttribute('class','form-control');
+$email->setAttribute('placeholder','Email');
+$full_name = $form->get('full_name');
+$full_name->setAttribute('class','form-control');
+$full_name->setAttribute('placeholder','Full name');
+$birthday = $form->get('birthday');
+$birthday->setAttribute('class','form-control');
+$birthday->setAttribute('placeholder','Birthday');
+$gender = $form->get('gender');
+$gender->setAttribute('class','form-control');
+$gender->setAttribute('placeholder','Gender');
+$submit = $form->get('submit');
+$submit->setAttribute('class','btn btn-primary');
+$form->setAttribute('action', $this->url('auth', ['action' => 'signup']));
+$form->prepare();
+?>
+
+<div class="border border-primary rounded px-5 py-4 w-50 mt-5 mx-auto">
+<h1>Sign Up</h1>
+<?= $this->form()->openTag($form) ?>
+<div class="form-group">
+  <?= $this->formLabel($username) ?>
+  <?= $this->formElement($username) ?>
+  <?= $this->formElementErrors()->render($username, ['class' => 'help-block']) ?>
+</div>
+<div class="form-group">
+  <?= $this->formLabel($password) ?>
+  <?= $this->formElement($password) ?>
+  <?= $this->formElementErrors()->render($password, ['class' => 'help-block']) ?>
+</div>
+<div class="form-group">
+  <?= $this->formLabel($email) ?>
+  <?= $this->formElement($email) ?>
+  <?= $this->formElementErrors()->render($email, ['class' => 'help-block']) ?>
+</div>
+<div class="form-group">
+  <?= $this->formLabel($full_name) ?>
+  <?= $this->formElement($full_name) ?>
+  <?= $this->formElementErrors()->render($full_name, ['class' => 'help-block']) ?>
+</div>
+<div class="form-group">
+  <?= $this->formLabel($birthday) ?>
+  <?= $this->formElement($birthday) ?>
+  <?= $this->formElementErrors()->render($birthday, ['class' => 'help-block']) ?>
+</div>
+<div class="form-group">
+  <?= $this->formLabel($gender) ?>
+  <?= $this->formElement($gender) ?>
+  <?= $this->formElementErrors()->render($gender, ['class' => 'help-block']) ?>
+</div>
+<?= $this->formSubmit($submit) ?>
+<?= $this->form()->closeTag() ?>
+</div>
