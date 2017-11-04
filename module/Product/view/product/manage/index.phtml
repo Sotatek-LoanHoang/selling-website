@@ -1,0 +1,38 @@
+<?php
+// module/Album/view/album/album/index.phtml:
+
+$title = 'Product';
+$this->headTitle($title);
+?>
+
+<h1>Product Management</h1>
+<p>
+    <a href="<?= $this->url('manage',['action' => 'add'])?>">
+        <button>Add new product</button>
+    </a>
+</p>
+
+<table class= "table">
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>content</th>
+        <th>image</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <?php foreach($products as $product) :?>
+        <tr>
+            <td><?= $this->escapeHtml($product->id)?></td>
+            <td><?= $this->escapeHtml($product->name)?></td>
+            <td><?= $this->escapeHtml($product->content)?></td>
+            <td><img src= "<?= $this->escapeHtml($product->image) ?>" height="30" width="30"></td>
+            <td>
+                <a href="<?= $this->url('manage', ['action' => 'edit', 'id' => $product->id]) ?>"><button>Edit</button></a>
+            </td>
+            <td>
+                <a href="<?= $this->url('manage', ['action' => 'delete', 'id' => $product->id]) ?>"><button>Delete</button></a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
