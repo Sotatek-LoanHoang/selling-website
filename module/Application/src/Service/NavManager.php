@@ -44,6 +44,11 @@ class NavManager
       'label' => 'Home',
       'link' => $url('home')
     ];
+    $items[] = [
+      'id' => 'search',
+      'label' => 'Search',
+      'link' => $url('search')
+    ];
         // Display "Login" menu item for not authorized user only. On the other hand,
         // display "Admin" and "Logout" menu items only for authorized users.
     if (!$this->authService->hasIdentity()) {
