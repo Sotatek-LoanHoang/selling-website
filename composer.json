@@ -17,13 +17,14 @@
         "zendframework/zend-mvc": "^3.0.1",
         "zfcampus/zf-development-mode": "^3.0",
         "zendframework/zend-db": "^2.8.1",
-        "zendframework/zend-mvc-form": "^1.0"
+        "zendframework/zend-mvc-form": "^1.0",
+        "zendframework/zend-paginator": "^2.8"
     },
     "autoload": {
         "psr-4": {
             "Application\\": "module/Application/src/",
             "User\\": "module/User/src/",
-            "Admin\\": "module/Admin/src/"
+            "Product\\": "module/Product/src/"
         }
     },
     "autoload-dev": {

@@ -1,5 +1,5 @@
 <?php
-namespace Admin\Model;
+namespace Product\Model;
 
 use RuntimeException;
 use Zend\Db\TableGateway\TableGatewayInterface;

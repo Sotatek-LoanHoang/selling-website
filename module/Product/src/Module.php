@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Admin;
+namespace Product;
 
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\Db\Adapter\AdapterInterface;
@@ -33,8 +33,8 @@ class Module implements ConfigProviderInterface
     public function getControllerConfig() {
         return [
             'factories' => [
-                Controller\ProductManageController::class => function($container) {
-                    return new Controller\ProductManageController(
+                Controller\ManageController::class => function($container) {
+                    return new Controller\ManageController(
                         $container->get(Model\ProductTable::class)
                     );
                 },
