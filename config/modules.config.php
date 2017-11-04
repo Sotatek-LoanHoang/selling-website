@@ -11,11 +11,10 @@
  * This should be an array of module namespaces used in the application.
  */
 return [
-    'Zend\Paginator',
-    'Zend\InputFilter',
-    'Zend\Filter',
-    'Zend\Hydrator',
-    'Zend\I18n',
+    // 'Zend\Paginator',
+    // 'Zend\InputFilter',
+    // 'Zend\Filter',
+    // 'Zend\Hydrator',
     'Zend\Session',
     'Zend\Form',
     'Zend\Db',
@@ -24,4 +23,5 @@ return [
     'Application',
     'User',
     'Product',
+    'Cart',
 ];

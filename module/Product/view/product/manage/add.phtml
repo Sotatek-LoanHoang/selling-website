@@ -37,6 +37,7 @@ echo $this->form()->openTag($form);
 <div class="form-group">
     <?= $this->formLabel($content) ?>
     <?= $this->formElement($content) ?>
+    <?= $this->formElement($content) ?>
     <?= $this->formElementErrors()->render($content, ['class' => 'help-block']) ?>
 </div>
 

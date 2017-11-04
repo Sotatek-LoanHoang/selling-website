@@ -1,0 +1,15 @@
+<?php
+$title = 'Cart';
+$this->headTitle($title);
+?>
+<?php $form->setAttribute('action', $this->url('cart', ['action' => 'index']));?>
+<?= $this->form()->openTag($form) ?>
+<?php
+foreach ($items as $id => $item) {
+  $element = $form->get($id);
+  echo $this->partial('_item.partial.phtml',['item' => $item, 'element' => $form->get($id)]);
+}
+?>
+
+<?= $this->formElement($form->get('submit')) ?>
+<?= $this->form()->closeTag() ?>

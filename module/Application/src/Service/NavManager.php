@@ -44,13 +44,11 @@ class NavManager
       'label' => 'Home',
       'link' => $url('home')
     ];
-
-        // $items[] = [
-        //     'id' => 'about',
-        //     'label' => 'About',
-        //     'link'  => $url('about')
-        // ];
-
+    $items[] = [
+      'id' => 'search',
+      'label' => 'Search',
+      'link' => $url('search')
+    ];
         // Display "Login" menu item for not authorized user only. On the other hand,
         // display "Admin" and "Logout" menu items only for authorized users.
     if (!$this->authService->hasIdentity()) {
@@ -68,21 +66,14 @@ class NavManager
       ];
     }
     else {
-
-            // $items[] = [
-            //     'id' => 'admin',
-            //     'label' => 'Admin',
-            //     'dropdown' => [
-            //         [
-            //             'id' => 'users',
-            //             'label' => 'Manage Users',
-            //             'link' => $url('users')
-            //         ]
-            //     ]
-            // ];
       $user = $this->table->getUser($this->authService->getIdentity());
-      $name = ($user->full_name != null) ? $user->full_name : $this->authService->getIdentity();
-      error_log($name);
+      $name = (isset($user->full_name)) ? $user->full_name : $this->authService->getIdentity();
+      $items[] = [
+        'id' => 'cart',
+        'label' => "Shopping Cart",
+        'float' => 'right',
+        'link' => $url('cart', ['action' => 'index']),
+      ];
       $items[] = [
         'id' => 'logout',
         'label' => $name,
@@ -93,7 +84,7 @@ class NavManager
             'label' => 'Sign out',
             'link' => $url('auth', ['action' => 'logout']),
           ],
-        ]
+        ],
       ];
     }
 
