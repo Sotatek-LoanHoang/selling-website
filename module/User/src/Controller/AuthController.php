@@ -23,7 +23,7 @@ class AuthController extends AbstractActionController
     if ($auth->hasIdentity()) {
       return $this->redirect()->toRoute('home');
     }
-    $form = new LoginForm($this->table);
+    $form = new LoginForm();
     $request = $this->getRequest();
     if (!$request->isPost()) {
       return ['form' => $form];

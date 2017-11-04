@@ -56,7 +56,7 @@ class UserTable
 
     public function deleteUser($username)
     {
-        $this->tableGateway->delete(['username' => (int)$username]);
+        $this->tableGateway->delete(['username' => $username]);
     }
 }
 ?>
