@@ -16,6 +16,7 @@ return [
     'Zend\Filter',
     'Zend\Hydrator',
     'Zend\I18n',
+    'Zend\Session',
     'Zend\Form',
     'Zend\Db',
     'Zend\Router',
