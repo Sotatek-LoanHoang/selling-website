@@ -38,6 +38,11 @@ class Module implements ConfigProviderInterface
                         $container->get(Model\ProductTable::class)
                     );
                 },
+                Controller\SearchController::class => function($container) {
+                    return new Controller\SearchController(
+                        $container->get(Model\ProductTable::class)
+                    );
+                },
             ],
         ];
     }
