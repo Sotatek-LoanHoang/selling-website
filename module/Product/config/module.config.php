@@ -12,7 +12,7 @@ return [
             'manage' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route' => '/product[/:action[/:id]]',
+                    'route' => '/product[/:id[/:action]]',
                     'constraints' => [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'     => '[0-9]+',

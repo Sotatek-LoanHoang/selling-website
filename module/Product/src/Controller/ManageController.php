@@ -12,7 +12,7 @@ class ManageController extends AbstractActionController
 {
     private $table;
 
-   public function __construct(ProductTable $table)
+    public function __construct(ProductTable $table)
     {
         $this->table = $table;
     }
@@ -45,7 +45,7 @@ class ManageController extends AbstractActionController
         return $this->redirect()->toRoute('manage');
     }
 
-  public function deleteAction()
+    public function deleteAction()
     {
         $id = (int) $this->params()->fromRoute('id', 0);
         if (!$id) {
@@ -72,7 +72,7 @@ class ManageController extends AbstractActionController
     }
 
     public function editAction(){
-    $id = (int) $this->params()->fromRoute('id', 0);
+        $id = (int) $this->params()->fromRoute('id', 0);
 
         if (0 === $id) {
             return $this->redirect()->toRoute('manage', ['action' => 'add']);
@@ -109,6 +109,18 @@ class ManageController extends AbstractActionController
 
         // Redirect to product list
         return $this->redirect()->toRoute('manage', ['action' => 'index']);
-    	
+
+    }
+
+    public function viewAction() {
+        $id = (int) $this->params()->fromRoute('id', 0);
+        $product = $this->table->getProduct($id);
+
+        if(!$product) {
+            return $this->redirect()->toRoute('manage', ['action' => 'index']);
+        }
+        else return new ViewModel ([
+            'product' => $product,
+        ]);
     }
 }
