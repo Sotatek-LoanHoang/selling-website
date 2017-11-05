@@ -1,0 +1,23 @@
+<?php
+// module/product/view/product/product/edit.phtml:
+
+$title = 'product '.$product->name ."'s information";
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+<button>Card cua bach ke bach</button>
+<div>
+    <table>
+        <tr>
+            <td>
+                <img src="<?= $product->image?> " alt= "day la anh" height ="300" width ="300">
+            </td>
+            <td>
+                <table>
+                    <tr> <td><?= $product->name ?></td></tr>
+                    <tr><td><?=$product->content ?></td></tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
