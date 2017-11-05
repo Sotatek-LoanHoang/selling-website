@@ -12,7 +12,7 @@ return [
             'manage' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route' => '/product[/:id[/:action]]',
+                    'route' => '/product[/:action[/:id]]',
                     'constraints' => [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'     => '[0-9]+',
@@ -24,12 +24,9 @@ return [
                 ],
             ],
             'search' => [
-                'type' => Segment::class,
+                'type' => 'literal',
                 'options' =>[
-                    'route' => '/search[?q=query]',
-                    'constraints' => [
-                        'query' =>'[a-zA-Z][a-zA-Z0-9_-]*',
-                    ],
+                    'route' => '/search',
                     'defaults' => [
                         'controller' =>Controller\SearchController::class,
                         'action' => 'search',

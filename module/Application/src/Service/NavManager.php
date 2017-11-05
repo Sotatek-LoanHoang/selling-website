@@ -70,7 +70,7 @@ class NavManager
       $name = (isset($user->full_name)) ? $user->full_name : $this->authService->getIdentity();
       $items[] = [
         'id' => 'cart',
-        'label' => "Shopping Cart",
+        'label' => "Cart",
         'float' => 'right',
         'link' => $url('cart', ['action' => 'index']),
       ];

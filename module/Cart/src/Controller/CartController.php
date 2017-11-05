@@ -33,6 +33,7 @@ class CartController extends AbstractActionController
         "quantity" => $item->quantity,
         "name" => $product->name,
         "image" => $product->image,
+        "price" => $product->price,
       ];
     }
     $form = new CartForm($items);
@@ -44,15 +45,49 @@ class CartController extends AbstractActionController
     if (!$form->isValid()) {
       return ['form' => $form];
     }
-    if (!$result->isValid()) {
+    if (!$form->isValid()) {
       return [
         'form' => $form,
         'items' => $newItems,
-        'errors' => $result->getMessages(),
       ];
     }
-
-    return $this->redirect()->toRoute('home');
+    $data = $form->getData();
+    $items = [];
+    foreach ($data as $key => $value) {
+      // error_log($key);
+      if ($key != 'submit') {
+        $temp = new Item();
+        $temp->exchangeArray(['id' => $key, 'quantity' => $value]);
+        $newItems[$item->id]["quantity"] = $value;
+        $items[] = $temp;
+      }
+    }
+    $this->itemTable->saveItems($items);
+    return [
+      'form' => $form,
+      'items' => $newItems,
+    ];
+  }
+  public function addAction()
+  {
+    $auth = new AuthenticationService();
+    if (!$auth->hasIdentity()) {
+      return $this->redirect()->toRoute('auth', ['action' => 'login']);
+    }
+    $request = $this->getRequest();
+    if (!$request->isPost()) {
+      return $this->redirect()->toRoute('cart');
+    }
+    $data = $request->getPost();
+    $item = $this->itemTable->getItem($data['id']);
+    if (isset($item)){
+      $item->quantity += $data['quantity'];
+    } else {
+      $item = new Item();
+      $item->exchangeArray($data);
+    }
+    $item = $this->itemTable->saveItem($item);
+    return $this->redirect()->toRoute('cart');
   }
 }
 ?>

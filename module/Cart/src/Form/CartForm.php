@@ -11,13 +11,15 @@ class CartForm extends Form
   {
     parent::__construct('cart');
 
-    foreach($items as $item) {
+    foreach ($items as $item) {
       $this->add([
         'name' => $item->id,
         'type' => 'number',
+        'options' => ['label' => 'Quantity', ],
         'attributes' => [
           'value' => $item->quantity,
           'id' => $item->id,
+          'min' => '1'
         ],
       ]);
     }

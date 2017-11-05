@@ -1,23 +1,26 @@
 <?php
 // module/product/view/product/product/edit.phtml:
 
-$title = 'product '.$product->name ."'s information";
+$title = $product->name;
 $this->headTitle($title);
 ?>
-<h1><?= $this->escapeHtml($title) ?></h1>
-<button>Card cua bach ke bach</button>
-<div>
-    <table>
-        <tr>
-            <td>
-                <img src="<?= $product->image?> " alt= "day la anh" height ="300" width ="300">
-            </td>
-            <td>
-                <table>
-                    <tr> <td><?= $product->name ?></td></tr>
-                    <tr><td><?=$product->content ?></td></tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+<div class="d-sm-flex mt-4">
+<img src="<?= $product->image ?>" width="300" height="300" class="d-block mx-auto">
+<div class="w-100">
+<div class="d-flex w-100 justify-content-between">
+<h1 class="text-primary"><?= $product->name ?></h1>
+<h3 class="mb-1 text-success"><?= '$'.$product->price ?></h3>
+</div>
+<p><?= $product->content ?></p>
+<form class="form-inline" action="<?= $this->url('cart',['action'=>'add']) ?>" method="post">
+<div class="input-group">
+<label>Quantity</label>
+<input type="hidden" name="id" value="<?= $product->id ?>">
+<input type="number" class="form-control ml-2" min="1" value="1" name="quantity">
+<span class="input-group-btn">
+<input class="btn btn-warning" type="submit" value="Add to cart">
+</span>
+</div>
+</form>
+</div>
 </div>

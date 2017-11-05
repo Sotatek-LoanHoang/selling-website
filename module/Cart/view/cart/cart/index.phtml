@@ -3,6 +3,7 @@ $title = 'Cart';
 $this->headTitle($title);
 ?>
 <?php $form->setAttribute('action', $this->url('cart', ['action' => 'index']));?>
+<?php $form->setAttribute('class','form-inline');?>
 <?= $this->form()->openTag($form) ?>
 <?php
 foreach ($items as $id => $item) {
@@ -10,6 +11,9 @@ foreach ($items as $id => $item) {
   echo $this->partial('_item.partial.phtml',['item' => $item, 'element' => $form->get($id)]);
 }
 ?>
-
+<?php
+$submit = $form->get('submit');
+$submit->setAttribute('class', 'btn btn-primary mt-2 float-right');
+if ($items->count() !== 0) ?>
 <?= $this->formElement($form->get('submit')) ?>
 <?= $this->form()->closeTag() ?>

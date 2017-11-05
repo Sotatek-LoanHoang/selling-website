@@ -9,9 +9,12 @@ return [
     'router' => [
         'routes' => [
             'cart' => [
-                'type' => 'literal',
+                'type' => Segment::class,
                 'options' => [
-                    'route' => '/cart',
+                    'route' => '/cart[/:action]',
+                    'constraints' => [
+                      'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                  ],
                     'defaults'=> [
                         'controller' => Controller\CartController::class,
                         'action' => 'index',
