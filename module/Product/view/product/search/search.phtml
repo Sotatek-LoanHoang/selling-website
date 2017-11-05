@@ -1,0 +1,26 @@
+<?php
+$title = 'Search product';
+$url   = $this->url('search', ['action' => 'search']);
+
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+
+<form action="<?= $url ?>" method="post">
+<div class="form-group">
+    <input type="text" name="key"/>
+    <input type="submit" class="btn btn-danger" value="Search" />
+</div>
+</form>
+<?php if(!$results||count($results)==0): ?>
+	<p> no result found </p>
+<?php else: ?>
+	<?php foreach ($results as $result):?>
+		<div class="swiper-slide" width= "120" height ="130" display="inline">
+			<a href="<?= $this->url('manage',['action' => 'view', 'id' => $result->id])?>">
+			<img src="<?= $result->image?>" height="100" width="100" alt="image">
+			<p width= "120"><?=$result->name?></p>
+			</a>
+		</div>
+	<?php endforeach;?>
+<?php endif;?>

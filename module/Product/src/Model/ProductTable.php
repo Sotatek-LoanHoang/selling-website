@@ -3,6 +3,7 @@ namespace Product\Model;
 
 use RuntimeException;
 use Zend\Db\TableGateway\TableGatewayInterface;
+use Zend\Db\Sql\Select;
 
 class ProductTable {
 
@@ -46,6 +47,15 @@ class ProductTable {
 
 	public function deleteProduct($id) {
 		$this->tableGateway->delete(['id' => (int)$id]);
+	}
+
+	public function matchProduct($keyword) {
+	$rowset = $this->tableGateway->select(function (Select $select) use($keyword) {
+    $select->where->like('name', $keyword.'%');
+    $select->order('name ASC');
+});
+		return $rowset;
+
 	}
 
 
