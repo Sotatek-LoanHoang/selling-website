@@ -2,12 +2,6 @@
 $this->headTitle('View Book');
 
 $this->mainMenu()->setActiveItemId('books');
-
-// $this->pageBreadcrumbs()->setItems([
-//   'Home' => $this->url('home'),
-//   'Manage Books' => $this->url('books'),
-//   'View Book' => $this->url('books', ['action' => 'view', 'id' => $book->getId()])
-// ]);
 ?>
 
 <?= $this->flashMessenger()->render('error', ['alert', 'alert-warning']); ?>
@@ -16,94 +10,94 @@ $this->mainMenu()->setActiveItemId('books');
 
 <?php if ($this->access('book.manage')) : ?>
 <p>
-    <a class="btn btn-default" href="<?= $this->url(
-                                      'books',
-                                      ['action' => 'edit', 'id' => $book->getId()]
-                                    ); ?>">
-        <span class="glyphicon glyphicon-pencil" ></span> Edit
-    </a>
-    <a class="btn btn-default" href="<?= $this->url(
-                                      'books',
-                                      ['action' => 'change-password', 'id' => $book->getId()]
-                                    ); ?>">
-        <span class="glyphicon glyphicon-asterisk"></span> Change Password
-    </a>
+  <a class="btn btn-primary" href="<?= $this->url('books', ['action' => 'edit', 'id' => $book->getId()]); ?>">
+    <span class="oi oi-pencil"></span> Edit
+  </a>
 </p>
 <?php endif ?>
-
 <div class='d-flex'>
-<div>
-<img src="https://images-na.ssl-images-amazon.com/images/I/518CruE4FjL._SX129_.jpg">
-</div>
-<div class='mx-3'>
-  <h3>
-<?= $book->getTitle() ?>
-<?php $authors = $book->getAuthors();
-if (!$authors->isEmpty()) {
-  $authorsLink = [];
-  foreach ($authors as $author) {
-    $authorsLink[] = '<a href="' . $this->url('authors', ['action' => 'view', 'id' => $author->getId()]) . '">' . $author->getName() . '</a>';
-  }
-  echo 'by ' . implode($authorsLink, ', ');
-} ?>
-</h3>
-<div>
-<?php
-$series = $book->getSeries();
-if (!$series->isEmpty()) {
-  $seriesLink = [];
-  foreach ($series as $s) {
-    $seriesLink[] = '<a href="' . $this->url('genres', ['action' => 'view', 'id' => $s->getId()]) . '">' . $s->getName() . '</a>';
-  }
-  echo 'Series: ' . implode($genresLink, ', ');
-} else {
-  echo 'Standalone';
-}?>
-</div>
-<div>
-<?php
-$genres = $book->getGenres();
-if (!$genres->isEmpty()) {
-  $genresLink = [];
-  foreach ($genres as $genre) {
-    $genresLink[] = '<a href="' . $this->url('genres', ['action' => 'view', 'id' => $genre->getId()]) . '">' . $genre->getName() . '</a>';
-  }
-  echo 'Genre: ' . implode($genresLink, ', ');
-} ?>
-</div>
-<div>
-<?php
-$publisher = $book->getPublisher();
-if (!empty($publisher)) {
-  echo 'Publisher: ' . $publisher;
-}
-?>
-</div>
-<div>
-<?php
-$printLength = $book->getPrintLength();
-if (!empty($printLength)) {
-  echo 'Print Length: ' . $printLength;
-}
-?>
-</div>
-<div>
-<?php
-$releaseDate = $book->getReleaseDate();
-if (!empty($releaseDate)) {
-  echo 'Release Date: ' . $releaseDate;
-}
-?>
-</div>
-<div>
-<?php
-$desc = $book->getDescription();
-if (!empty($desc)) {
-  echo "<p>" . implode("</p><p>", explode("\n", $desc)) . "</p>";
-}
-?>
-</div>
+  <div>
+    <div>
+      <img class="d-block mx-auto" src="https://images-na.ssl-images-amazon.com/images/I/518CruE4FjL._SX129_.jpg">
+    </div>
+    <form>
+      <div class="input-group mt-2">
+        <input type="tel" class="form-control" style="width:40px;" value="1">
+        <span class="input-group-btn">
+          <button class="btn btn-primary btn-block" type="submit">
+            <span class="oi oi-cart"></span> Add to cart</button>
+        </span>
+      </div>
+  </div>
+  </form>
+  <div class='mx-3'>
+    <h3>
+      <?= $book->getTitle() ?>
+        <?php $authors = $book->getAuthors();
+        if (!$authors->isEmpty()) {
+          $authorsLink = [];
+          foreach ($authors as $author) {
+            $authorsLink[] = '<a href="' . $this->url('authors', ['action' => 'view', 'id' => $author->getId()]) . '">' . $author->getName() . '</a>';
+          }
+          echo 'by ' . implode($authorsLink, ', ');
+        } ?>
+    </h3>
+    <div>
+      <?php
+      $series = $book->getSeries();
+      if (!$series->isEmpty()) {
+        $seriesLink = [];
+        foreach ($series as $s) {
+          $seriesLink[] = '<a href="' . $this->url('genres', ['action' => 'view', 'id' => $s->getId()]) . '">' . $s->getName() . '</a>';
+        }
+        echo 'Series: ' . implode($genresLink, ', ');
+      } else {
+        echo 'Standalone';
+      } ?>
+    </div>
+    <div>
+      <?php
+      $genres = $book->getGenres();
+      if (!$genres->isEmpty()) {
+        $genresLink = [];
+        foreach ($genres as $genre) {
+          $genresLink[] = '<a href="' . $this->url('genres', ['action' => 'view', 'id' => $genre->getId()]) . '">' . $genre->getName() . '</a>';
+        }
+        echo 'Genre: ' . implode($genresLink, ', ');
+      } ?>
+    </div>
+    <div>
+      <?php
+      $publisher = $book->getPublisher();
+      if (!empty($publisher)) {
+        echo 'Publisher: ' . $publisher;
+      }
+      ?>
+    </div>
+    <div>
+      <?php
+      $printLength = $book->getPrintLength();
+      if (!empty($printLength)) {
+        echo 'Print Length: ' . $printLength;
+      }
+      ?>
+    </div>
+    <div>
+      <?php
+      $releaseDate = $book->getReleaseDate();
+      if (!empty($releaseDate)) {
+        echo 'Release Date: ' . $releaseDate;
+      }
+      ?>
+    </div>
+    <div>
+      <?php
+      $desc = $book->getDescription();
+      if (!empty($desc)) {
+        echo "<p>" . implode("</p><p>", explode("\n", $desc)) . "</p>";
+      }
+      ?>
+    </div>
 
+  </div>
 </div>
-</div>
-

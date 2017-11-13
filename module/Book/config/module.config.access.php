@@ -7,7 +7,8 @@ return [
   'access_filter' => [
     'controllers' => [
       Controller\BookController::class => [
-        ['actions' => ['index', 'add', 'edit', 'view'], 'allow' => '+book.manage'],
+        ['actions' => ['index', 'add', 'edit'], 'allow' => '+book.manage'],
+        ['actions' => ['view'], 'allow' => '*'],
       ],
     ]
   ],

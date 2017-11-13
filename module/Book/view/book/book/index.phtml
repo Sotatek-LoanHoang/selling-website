@@ -12,9 +12,9 @@ $this->pageBreadcrumbs()->setItems([
 <h1>Manage Books</h1>
 
 <p>
-<a class="btn btn-default" href="
+<a class="btn btn-primary" href="
     <?= $this->url('books', ['action'=>'add']); ?>">
-    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Book
+    <span class="oi oi-plus" aria-hidden="true"></span> New Book
 </a>
 </p>
 
@@ -48,11 +48,11 @@ $this->pageBreadcrumbs()->setItems([
         <td>
             <a class="btn btn-info" href="<?= $this->url('books',
                     ['action'=>'edit', 'id'=>$book->getId()]); ?>">
-                <span class="glyphicon glyphicon-pencil" ></span> Edit
+                <span class="oi oi-pencil" ></span> Edit
             </a>
-            <a class="btn btn-default" href="<?= $this->url('books',
+            <a class="btn btn-primary" href="<?= $this->url('books',
                     ['action'=>'delete', 'id'=>$book->getId()]); ?>">
-                <span class="glyphicon glyphicon-asterisk"></span> Delete
+                <span class="oi oi-x"></span> Delete
             </a>
         </td>
     </tr>

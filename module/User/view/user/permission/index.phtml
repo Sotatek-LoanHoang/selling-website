@@ -16,9 +16,9 @@ $this->pageBreadcrumbs()->setItems([
 <?= $this->flashMessenger()->render('info', ['alert', 'alert-info']); ?>
 
 <p>
-<a class="btn btn-default" href="
+<a class="btn btn-primary" href="
     <?= $this->url('permissions', ['action'=>'add']); ?>">
-    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Permission
+    <span class="oi oi-plus" aria-hidden="true"></span> New Permission
 </a>
 </p>
 
@@ -29,37 +29,37 @@ $this->pageBreadcrumbs()->setItems([
         <th>Name</th>
         <th>Description</th>
         <th>Date Created</th>
-        <th>Actions</th>        
+        <th>Actions</th>
     </tr>
-    
+
     <?php foreach ($permissions as $permission): ?>
-    
+
     <tr>
         <td><?= $this->escapeHtml($permission->getId()); ?></td>
         <td>
             <a href="<?= $this->url('permissions', ['action'=>'view', 'id'=>$permission->getId()]); ?>">
                 <?= $this->escapeHtml($permission->getName()); ?>
-            </a> 
+            </a>
         </td>
-        <td><?= $this->escapeHtml($permission->getDescription()); ?></a> 
+        <td><?= $this->escapeHtml($permission->getDescription()); ?></a>
         </td>
-        <td><nobr><?= $this->escapeHtml($permission->getDateCreated()); ?></nobr></td>        
+        <td><nobr><?= $this->escapeHtml($permission->getDateCreated()); ?></nobr></td>
         <td>
             <nobr>
-            <a class="btn btn-info" href="<?= $this->url('permissions', 
+            <a class="btn btn-info" href="<?= $this->url('permissions',
                     ['action'=>'edit', 'id'=>$permission->getId()]); ?>">
-                <span class="glyphicon glyphicon-pencil" ></span> Edit
+                <span class="oi oi-pencil" ></span> Edit
             </a>
             <a class="btn btn-danger" href="<?= $this->url('permissions',
                     ['action'=>'delete', 'id'=>$permission->getId()]); ?>">
-                <span class="glyphicon glyphicon-remove"></span> Delete
+                <span class="oi oi-remove"></span> Delete
             </a>
             </nobr>
-        </td>    
+        </td>
     </tr>
-        
-    <?php endforeach; ?>   
-    
+
+    <?php endforeach; ?>
+
 </table>
 
 

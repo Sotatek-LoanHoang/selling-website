@@ -18,12 +18,12 @@ $this->pageBreadcrumbs()->setItems([
 <?= $this->flashMessenger()->render('info', ['alert', 'alert-info']); ?>
 
 <p>
-<a class="btn btn-default" href="<?= $this->url('roles', 
+<a class="btn btn-primary" href="<?= $this->url('roles',
                     ['action'=>'edit', 'id'=>$role->getId()]); ?>">
-                <span class="glyphicon glyphicon-pencil" ></span> Edit Role
+                <span class="oi oi-pencil" ></span> Edit Role
 </a>
 </p>
-    
+
 <div class="row">
     <div class="col-md-8">
         <table class="table table-striped table-bordered">
@@ -50,8 +50,8 @@ $this->pageBreadcrumbs()->setItems([
 <h2>Permissions</h2>
 
 <p>
-<a class="btn btn-default" href="<?= $this->url('roles', ['action'=>'editPermissions', 'id'=>$role->getId()]) ?>">
-  <span class="glyphicon glyphicon-check"></span> Edit Permissions
+<a class="btn btn-primary" href="<?= $this->url('roles', ['action'=>'editPermissions', 'id'=>$role->getId()]) ?>">
+  <span class="oi oi-check"></span> Edit Permissions
 </a>
 </p>
 

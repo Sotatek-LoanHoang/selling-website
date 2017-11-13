@@ -19,17 +19,17 @@ $this->pageBreadcrumbs()->setItems([
 
 <?php if ($this->access('profile.any.manage') || $this->access('profile.own.manage', ['user' => $user])) : ?>
 <p>
-    <a class="btn btn-default" href="<?= $this->url(
+    <a class="btn btn-primary" href="<?= $this->url(
                                       'users',
                                       ['action' => 'edit', 'id' => $user->getId()]
                                     ); ?>">
-        <span class="glyphicon glyphicon-pencil" ></span> Edit
+        <span class="oi oi-pencil" ></span> Edit
     </a>
-    <a class="btn btn-default" href="<?= $this->url(
+    <a class="btn btn-primary" href="<?= $this->url(
                                       'users',
                                       ['action' => 'change-password', 'id' => $user->getId()]
                                     ); ?>">
-        <span class="glyphicon glyphicon-asterisk"></span> Change Password
+        <span class="oi oi-key"></span> Change Password
     </a>
 </p>
 <?php endif ?>
