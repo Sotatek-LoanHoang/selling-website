@@ -1,0 +1,56 @@
+<div class="row">
+<div class="col-md-offset-4 col-md-5">
+
+<?php if ($id == 'sent') : ?>
+<?php
+$this->headTitle('Thank You');
+?>
+<h1>Reset Password</h1>
+<p>
+    A password reset link has been sent to your email address.
+</p>
+<?php elseif ($id == 'invalid-email') : ?>
+<?php
+$this->headTitle('Error');
+?>
+<h1>Invalid E-mail</h1>
+<p>
+    There is no user with such an email.
+</p>
+<?php elseif ($id == 'set') : ?>
+<?php
+$this->headTitle('Thank You');
+?>
+<h1>New Password</h1>
+<p>
+    Your new password has been set successfully.
+</p>
+<p>
+    Return to <a href="<?= $this->url('login'); ?>">login page</a>.
+</p>
+<?php elseif ($id == 'failed') : ?>
+<?php
+$this->headTitle('Error');
+?>
+<h1>Invalid Token</h1>
+    Invalid reset key or it may have expired. Please return
+    <a href="<?= $this->url('reset-password') ?>">here</a> and try reset your password again.
+</p>
+<?php elseif ($id == 'activate-failed') : ?>
+<?php
+$this->headTitle('Error');
+?>
+<h1>Invalid Token</h1>
+    Invalid activate token.
+</p>
+<?php elseif ($id == 'email-sent') : ?>
+<?php
+$this->headTitle('Thank you');
+?>
+<h1>Activation Required</h1>
+<p>
+    A activate link has been sent to your email address.
+</p>
+<?php endif; ?>
+</div>
+</div>

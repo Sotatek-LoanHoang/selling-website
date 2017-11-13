@@ -1,0 +1,117 @@
+<?php
+$this->headTitle('Add Book');
+
+$this->mainMenu()->setActiveItemId('books');
+
+$this->pageBreadcrumbs()->setItems([
+  'Home' => $this->url('home'),
+  'Manage Books' => $this->url('books'),
+  'Add Book' => $this->url('books', ['action' => 'add'])
+]);
+
+$form->get('title')->setAttributes([
+  'class' => 'form-control',
+  'placeholder' => 'Game of Thrones'
+]);
+
+$form->get('description')->setAttributes([
+  'class' => 'form-control',
+  'placeholder' => 'George R.R. Martin\'s best-selling book series...'
+]);
+
+$form->get('publisher')->setAttributes([
+  'class' => 'form-control',
+  'placeholder' => 'Bantam Spectra'
+]);
+
+$form->get('releaseDate')->setAttributes([
+  'class' => 'form-control'
+]);
+
+$form->get('printLength')->setAttributes([
+  'class' => 'form-control',
+  'placeholder' => '694'
+]);
+
+$form->get('authors')->setAttributes([
+  'class' => 'form-control'
+]);
+
+$form->get('series')->setAttributes([
+  'class' => 'form-control'
+]);
+
+$form->get('genres')->setAttributes([
+  'class' => 'form-control',
+  'placeholder' => 'Enter series',
+]);
+
+$form->get('submit')->setAttributes(['class' => 'btn btn-primary']);
+
+$form->prepare();
+?>
+
+<h1>Add User</h1>
+
+<p>
+    Please fill out the following form and click the <i>Create</i> button.
+</p>
+
+<div class="row">
+    <div class="col-md-6">
+        <?= $this->form()->openTag($form); ?>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('title')); ?>
+            <?= $this->formElement($form->get('title')); ?>
+            <?= $this->formElementErrors($form->get('title')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('description')); ?>
+            <?= $this->formElement($form->get('description')); ?>
+            <?= $this->formElementErrors($form->get('description')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('publisher')); ?>
+            <?= $this->formElement($form->get('publisher')); ?>
+            <?= $this->formElementErrors($form->get('publisher')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('releaseDate')); ?>
+            <?= $this->formElement($form->get('releaseDate')); ?>
+            <?= $this->formElementErrors($form->get('releaseDate')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('printLength')); ?>
+            <?= $this->formElement($form->get('printLength')); ?>
+            <?= $this->formElementErrors($form->get('printLength')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('authors')); ?>
+            <?= $this->formElement($form->get('authors')); ?>
+            <?= $this->formElementErrors($form->get('authors')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('series')); ?>
+            <?= $this->formElement($form->get('series')); ?>
+            <?= $this->formElementErrors($form->get('series')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('genres')); ?>
+            <?= $this->formElement($form->get('genres')); ?>
+            <?= $this->formElementErrors($form->get('genres')); ?>
+        </div>
+
+        <?= $this->formElement($form->get('submit')); ?>
+
+        <?= $this->form()->closeTag(); ?>
+    </div>
+</div>
+

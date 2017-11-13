@@ -1,0 +1,63 @@
+<?php
+$this->headTitle('Books');
+
+$this->mainMenu()->setActiveItemId('books');
+
+$this->pageBreadcrumbs()->setItems([
+            'Home'=>$this->url('home'),
+            'Manage Books'=>$this->url('books'),
+            ]);
+?>
+
+<h1>Manage Books</h1>
+
+<p>
+<a class="btn btn-default" href="
+    <?= $this->url('books', ['action'=>'add']); ?>">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Book
+</a>
+</p>
+
+<table class="table table-striped">
+
+   <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Publisher</th>
+        <th>Print Length</th>
+        <th>Release Date</th>
+        <th>Actions</th>
+    </tr>
+
+    <?php foreach ($books as $book): ?>
+
+    <tr>
+        <td><?= $this->escapeHtml($book->getId()); ?></td>
+        <td>
+            <a href="<?= $this->url('books', ['action'=>'view', 'id'=>$book->getId()]); ?>">
+                <?= $this->escapeHtml($book->getTitle()); ?>
+            </a>
+        </td>
+        <td>
+            <?= $this->escapeHtml($book->getPublisher()); ?></a>
+        </td>
+        <td>
+            <?= $this->escapeHtml($book->getPrintLength()); ?></a>
+        </td>
+        <td><?= $this->escapeHtml($book->getReleaseDate()); ?></td>
+        <td>
+            <a class="btn btn-info" href="<?= $this->url('books',
+                    ['action'=>'edit', 'id'=>$book->getId()]); ?>">
+                <span class="glyphicon glyphicon-pencil" ></span> Edit
+            </a>
+            <a class="btn btn-default" href="<?= $this->url('books',
+                    ['action'=>'delete', 'id'=>$book->getId()]); ?>">
+                <span class="glyphicon glyphicon-asterisk"></span> Delete
+            </a>
+        </td>
+    </tr>
+
+    <?php endforeach; ?>
+
+</table>
+
