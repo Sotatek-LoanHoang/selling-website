@@ -8,127 +8,85 @@ use Zend\View\Helper\AbstractHelper;
  */
 class Menu extends AbstractHelper
 {
-    /**
-     * Menu items array.
-     * @var array
-     */
-    protected $items = [];
+  /**
+   * Menu items array.
+   * @var array
+   */
+  protected $items = [];
 
-    /**
-     * Active item's ID.
-     * @var string
-     */
-    protected $activeItemId = '';
+  /**
+   * Active item's ID.
+   * @var string
+   */
+  protected $activeItemId = '';
 
-    /**
-     * Constructor.
-     * @param array $items Menu items.
-     */
-    public function __construct($items=[])
-    {
-        $this->items = $items;
+  /**
+   * Constructor.
+   * @param array $items Menu items.
+   */
+  public function __construct($items = [])
+  {
+    $this->items = $items;
+  }
+
+  /**
+   * Sets menu items.
+   * @param array $items Menu items.
+   */
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+
+  /**
+   * Sets ID of the active items.
+   * @param string $activeItemId
+   */
+  public function setActiveItemId($activeItemId)
+  {
+    $this->activeItemId = $activeItemId;
+  }
+
+  /**
+   * Renders the menu.
+   * @return string HTML code of the menu.
+   */
+  public function render()
+  {
+    if (count($this->items) == 0)
+      return ''; // Do nothing if there are no items.
+
+    $result = '<nav class="navbar navbar-expand-md navbar-light bg-light">';
+    $result .= '<button class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent">';
+    $result .= '<span class="navbar-toggler-icon"></span>';
+    $result .= '</button>';
+    $result .= '<div class="collapse navbar-collapse" id="navbarSupportedContent">';
+    $result .= '<a class="navbar-brand" href="/">Bookstore</a>';
+    $result .= '<ul class="navbar-nav">';
+    if (isset($this->activeItemId) && !empty($this->activeItemId)) {
+      if (isset($this->items[$this->activeItemId]))
+        $this->items[$this->activeItemId]->setActive(true);
+    }
+    // Render items
+    foreach ($this->items as $item) {
+      if ($item->getFloat() == 'left')
+        $result .= $item->render();
     }
 
-    /**
-     * Sets menu items.
-     * @param array $items Menu items.
-     */
-    public function setItems($items)
-    {
-        $this->items = $items;
+    $result .= '</ul>';
+    $result .= '<ul class="navbar-nav ml-auto">';
+
+    // Render items
+    foreach ($this->items as $item) {
+      if ($item->getFloat() == 'right')
+        $result .= $item->render();
     }
 
-    /**
-     * Sets ID of the active items.
-     * @param string $activeItemId
-     */
-    public function setActiveItemId($activeItemId)
-    {
-        $this->activeItemId = $activeItemId;
-    }
+    $result .= '</ul>';
+    $result .= '</div>';
+    $result .= '</nav>';
 
-    /**
-     * Renders the menu.
-     * @return string HTML code of the menu.
-     */
-    public function render()
-    {
-        if (count($this->items)==0)
-            return ''; // Do nothing if there are no items.
+    return $result;
 
-        $result = '<nav class="navbar navbar-expand-md navbar-light bg-light">';
-        $result .= '<button class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent">';
-        $result .= '<span class="navbar-toggler-icon"></span>';
-        $result .= '</button>';
-        $result .= '<div class="collapse navbar-collapse" id="navbarSupportedContent">';
-        $result .= '<ul class="navbar-nav">';
-
-        // Render items
-        foreach ($this->items as $item) {
-            if(!isset($item['float']) || $item['float']=='left')
-                $result .= $this->renderItem($item);
-        }
-
-        $result .= '</ul>';
-        $result .= '<ul class="navbar-nav ml-auto">';
-
-        // Render items
-        foreach ($this->items as $item) {
-            if(isset($item['float']) && $item['float']=='right')
-                $result .= $this->renderItem($item);
-        }
-
-        $result .= '</ul>';
-        $result .= '</div>';
-        $result .= '</nav>';
-
-        return $result;
-
-    }
-
-    /**
-     * Renders an item.
-     * @param array $item The menu item info.
-     * @return string HTML code of the item.
-     */
-    protected function renderItem($item)
-    {
-        $id = isset($item['id']) ? $item['id'] : '';
-        $isActive = ($id==$this->activeItemId);
-        $label = isset($item['label']) ? $item['label'] : '';
-
-        $result = '';
-
-        $escapeHtml = $this->getView()->plugin('escapeHtml');
-
-        if (isset($item['dropdown'])) {
-
-            $dropdownItems = $item['dropdown'];
-
-            $result .= '<li class="nav-item dropdown ' . ($isActive?'active':'') . '">';
-            $result .= '<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">';
-            $result .= $escapeHtml($label) . ' <b class="caret"></b>';
-            $result .= '</a>';
-            if(isset($item['float']) && $item['float']=='right')
-              $result .= '<div class="dropdown-menu dropdown-menu-right">';
-            else
-            $result .= '<div class="dropdown-menu">';
-            foreach ($dropdownItems as $item) {
-                $link = isset($item['link']) ? $item['link'] : '#';
-                $label = isset($item['label']) ? $item['label'] : '';
-                $result .= '<a class="nav-link dropdown-item" href="'.$escapeHtml($link).'">'.$escapeHtml($label).'</a>';
-            }
-            $result .= '</div>';
-            $result .= '</li>';
-
-        } else {
-            $link = isset($item['link']) ? $item['link'] : '#';
-
-            $result .= $isActive?'<li class="nav-item active">':'<li class="nav-item">';
-            $result .= '<a class="nav-link" href="'.$escapeHtml($link).'">'.$escapeHtml($label).'</a>';
-            $result .= '</li>';
-        }
-
-        return $result;
-    }
+  }
 }

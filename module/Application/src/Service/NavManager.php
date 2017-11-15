@@ -44,9 +44,9 @@ class NavManager
   /**
    * This method add an menu item
    */
-  public function addMenuItem(array $item)
+  public function addMenuItem(NavItemInterface $item)
   {
-    $this->menuItems[] = $item;
+    $this->menuItems[$item->getId()] = $item;
   }
 
   /**
@@ -54,7 +54,8 @@ class NavManager
    */
   public function addMenuItems(array $items)
   {
-    $this->menuItems += $items;
+    foreach ($items as $item)
+      $this->menuItems[$item->getId()] = $item;
   }
 
   /**

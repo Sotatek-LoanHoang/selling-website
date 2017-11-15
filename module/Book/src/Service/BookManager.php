@@ -78,7 +78,7 @@ class BookManager
         throw new \Exception('Not found author by ID');
       }
 
-      $book->addRole($author);
+      $book->addAuthor($author);
     }
   }
   private function assignGenres($book, $genreIds)
@@ -92,7 +92,7 @@ class BookManager
         throw new \Exception('Not found genre by ID');
       }
 
-      $book->addRole($genre);
+      $book->addGenre($genre);
     }
   }
   private function assignSeries($book, $seriesIds)
@@ -106,7 +106,7 @@ class BookManager
         throw new \Exception('Not found series by ID');
       }
 
-      $book->addRole($series);
+      $book->addSeries($series);
     }
   }
 }

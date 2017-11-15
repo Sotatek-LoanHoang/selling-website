@@ -2,6 +2,9 @@
 namespace User;
 
 return [
+  'rbac_manager' => [
+    'assertions' => [Service\RbacAssertionManager::class],
+  ],
   'default_permissions' => [
     'user.manage' => 'Manage users',
     'permission.manage' => 'Manage permissions',

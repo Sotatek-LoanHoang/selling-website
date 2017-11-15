@@ -18,8 +18,11 @@ class Module
   public function getConfig()
   {
     return array_merge_recursive(
-      include __DIR__ . '/../config/module.config.php',
-      include __DIR__ . '/../config/module.config.route.php'
+      include __DIR__ . '/../config/module.config.access.php',
+      include __DIR__ . '/../config/module.config.controller.php',
+      include __DIR__ . '/../config/module.config.route.php',
+      include __DIR__ . '/../config/module.config.service.php',
+      include __DIR__ . '/../config/module.config.view.php'
     );
   }
 
@@ -35,6 +38,14 @@ class Module
     // makes the SessionManager the 'default' one to avoid passing the
     // session manager as a dependency to other models.
     $sessionManager = $serviceManager->get(SessionManager::class);
+    $navManager = $serviceManager->get(Service\NavManager::class);
+    $url = $serviceManager->get('ViewHelperManager')->get('url');
+    $navManager->addMenuItem(new Service\StaticNavItem([
+      'id' => 'home',
+      'label' => 'Home',
+      'link' => $url('home'),
+      'float' => 'left',
+    ]));
   }
 }
 

@@ -1,0 +1,33 @@
+<?php
+$this->headTitle('View Book');
+
+$this->mainMenu()->setActiveItemId('authors');
+?>
+
+<?= $this->flashMessenger()->render('error', ['alert', 'alert-warning']); ?>
+<?= $this->flashMessenger()->render('success', ['alert', 'alert-success']); ?>
+<?= $this->flashMessenger()->render('info', ['alert', 'alert-info']); ?>
+
+<?php if ($this->access('book.manage')) : ?>
+<p>
+  <a class="btn btn-primary" href="<?= $this->url('authors', ['action' => 'edit', 'id' => $author->getId()]); ?>">
+    <span class="oi oi-pencil"></span> Edit
+  </a>
+</p>
+<?php endif ?>
+<div>
+  <div class="bg-light text-dark py-5">
+    <h1 class="text-center"><?= $author->getName() ?></h1>
+  </div>
+  <div class="card-columns mt-3">
+    <?php foreach ($author->getBooks() as $book) : ?>
+    <a class="card text-dark" href="<?= $this->url('books', ['action' => 'view', 'id' => $book->getId()]); ?>">
+      <img class="card-img-top" src="https://images-na.ssl-images-amazon.com/images/I/51Mk2eEHHaL._SX129_.jpg">
+      <div class="card-body">
+        <h4 class="card-title text-primary"><?= $book->getTitle() ?></h4>
+        <p class="card-text text-truncate"><?= $book->getDescription() ?>></p>
+      </div>
+    </a>
+    <?php endforeach ?>
+  </div>
+</div>

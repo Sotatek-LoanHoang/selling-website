@@ -1,0 +1,57 @@
+<?php
+$this->headTitle('Authors');
+
+$this->mainMenu()->setActiveItemId('authors');
+
+$this->pageBreadcrumbs()->setItems([
+  'Home' => $this->url('home'),
+  'Manage Authors' => $this->url('authors'),
+]);
+?>
+
+<h1>Manage Authors</h1>
+
+<p>
+<a class="btn btn-primary" href="
+    <?= $this->url('authors', ['action' => 'add']); ?>">
+    <span class="oi oi-plus" aria-hidden="true"></span> New Author
+</a>
+</p>
+
+<table class="table table-striped">
+
+   <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Actions</th>
+    </tr>
+
+    <?php foreach ($authors as $author) : ?>
+
+    <tr>
+        <td><?= $this->escapeHtml($author->getId()); ?></td>
+        <td>
+            <a href="<?= $this->url('authors', ['action' => 'view', 'id' => $author->getId()]); ?>">
+                <?= $this->escapeHtml($author->getName()); ?>
+            </a>
+        </td>
+        <td>
+            <a class="btn btn-info" href="<?= $this->url(
+                                            'authors',
+                                            ['action' => 'edit', 'id' => $author->getId()]
+                                          ); ?>">
+                <span class="oi oi-pencil" ></span> Edit
+            </a>
+            <a class="btn btn-primary" href="<?= $this->url(
+                                              'authors',
+                                              ['action' => 'delete', 'id' => $author->getId()]
+                                            ); ?>">
+                <span class="oi oi-x"></span> Delete
+            </a>
+        </td>
+    </tr>
+
+    <?php endforeach; ?>
+
+</table>
+

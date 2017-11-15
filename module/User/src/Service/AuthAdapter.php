@@ -68,7 +68,6 @@ class AuthAdapter implements AdapterInterface
 
     // If there is no such user, return 'Identity Not Found' status.
     if ($user == null) {
-      error_log('a3');
       return new Result(
         Result::FAILURE_IDENTITY_NOT_FOUND,
         null,
@@ -96,7 +95,6 @@ class AuthAdapter implements AdapterInterface
     // Now we need to calculate hash based on user-entered password and compare
     // it with the password hash stored in database.
     $passwordHash = $user->getPassword();
-    error_log($user->getPassword());
     if (password_verify($this->password, $passwordHash)) {
       // Great! The password hash matches. Return user identity (username) to be
       // saved in session for later use.

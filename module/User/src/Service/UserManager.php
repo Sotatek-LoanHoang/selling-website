@@ -209,7 +209,6 @@ class UserManager
 
       $this->permissionManager->createDefaultPermissionsIfNotExist();
       $this->roleManager->createDefaultRolesIfNotExist();
-      error_log('asfasdfads');
       $user = new User();
       $user->setUsername('admin');
       $user->setEmail('admin@example.com');

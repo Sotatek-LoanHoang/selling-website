@@ -80,10 +80,8 @@ class AuthController extends AbstractActionController
 
         // Perform login attempt.
         $result = $this->authManager->login($data['username'], $data['password'], $data['remember_me']);
-        error_log("a1");
         // Check result.
         if ($result->getCode() == Result::SUCCESS) {
-          error_log("a2");
           // Get redirect URL.
           $redirectUrl = $this->params()->fromPost('redirect_url', '');
 

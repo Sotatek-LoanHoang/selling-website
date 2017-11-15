@@ -62,7 +62,7 @@ $form->prepare();
             <?= $this->formElement($form->get('birthday')); ?>
             <?= $this->formElementErrors($form->get('birthday')); ?>
         </div>
-        <?php if ($this->access('role.manage')) : ?>
+        <?php if ($this->access('user.manage')) : ?>
         <div class="form-group">
             <?= $this->formLabel($form->get('status')); ?>
             <?= $this->formElement($form->get('status')); ?>

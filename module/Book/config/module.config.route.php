@@ -21,6 +21,20 @@ return [
           ],
         ],
       ],
+      'authors' => [
+        'type' => Segment::class,
+        'options' => [
+          'route' => '/authors[/:action[/:id]]',
+          'constraints' => [
+            'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+            'id' => '[a-zA-Z0-9_-]*',
+          ],
+          'defaults' => [
+            'controller' => Controller\AuthorController::class,
+            'action' => 'index',
+          ],
+        ],
+      ],
     ],
   ],
 ];

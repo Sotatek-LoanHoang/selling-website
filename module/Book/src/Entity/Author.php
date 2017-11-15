@@ -24,10 +24,21 @@ class Author
   protected $name;
 
   /**
+   * Many Authors have Many Books.
+   * @ORM\ManyToMany(targetEntity="Book")
+   * @ORM\JoinTable(name="book_author",
+   *      joinColumns={@ORM\JoinColumn(name="author_id", referencedColumnName="id")},
+   *      inverseJoinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")}
+   *      )
+   */
+  private $books;
+
+  /**
    * Constructor.
    */
   public function __construct()
   {
+    $this->books = new ArrayCollection();
   }
 
   /**
@@ -63,5 +74,21 @@ class Author
   public function setName($name)
   {
     $this->name = $name;
+  }
+
+  /**
+   * Assign a book to author.
+   */
+  public function addBook($book)
+  {
+    $this->books->add($book);
+  }
+
+  /**
+   * Returns the array of books assigned to author.
+   */
+  public function getBooks()
+  {
+    return $this->books;
   }
 }

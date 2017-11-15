@@ -13,6 +13,10 @@ use Zend\Mvc\Controller\AbstractActionController;
 use User\Controller\AuthController;
 use User\Service\AuthManager;
 use Application\Service\NavManager;
+use Application\Service\StaticNavItem;
+use Application\Service\DropdownNavItem;
+use Doctrine\ORM\EntityManager;
+use User\Entity\User;
 
 class Module
 {
@@ -48,34 +52,72 @@ class Module
       [$this, 'onDispatch'],
       100
     );
-    $navManager = $event->getApplication()->getServiceManager()->get(NavManager::class);
-    $authService = $event->getApplication()->getServiceManager()->get(\Zend\Authentication\AuthenticationService::class);
-    $url = $event->getApplication()->getServiceManager()->get('ViewHelperManager')->get('url');
-    $items = [];
+    $serviceManager = $event->getApplication()->getServiceManager();
+    $navManager = $serviceManager->get(NavManager::class);
+    $authService = $serviceManager->get(\Zend\Authentication\AuthenticationService::class);
+    $url = $serviceManager->get('ViewHelperManager')->get('url');
+
     // Display login button in navigation bar if not logged in otherwise display
     // profile dropdown
     if (!$authService->hasIdentity()) {
-      $items[] = [
+      $navManager->addMenuItem(new StaticNavItem([
         'id' => 'login',
         'label' => 'Sign in',
         'link' => $url('login'),
         'float' => 'right'
-      ];
+      ]));
     } else {
-      $items[] = [
+      $user = $serviceManager->get(EntityManager::class)->getRepository(User::class)->findOneByUsername($authService->getIdentity());
+      $name = (!empty($user->getFullName())) ? $user->getFullName() : $authService->getIdentity();
+      $navManager->addMenuItem(new DropdownNavItem([
         'id' => 'profile',
-        'label' => $authService->getIdentity(),
+        'label' => $name,
         'float' => 'right',
         'dropdown' => [
+          [
+            'id' => 'viewProfile',
+            'label' => 'View Profile',
+            'link' => $url('users', ['action' => 'view', 'id' => $user->getId()]),
+          ],
           [
             'id' => 'logout',
             'label' => 'Sign out',
             'link' => $url('logout')
           ],
         ]
-      ];
+      ]));
+      $access = $serviceManager->get('ViewHelperManager')->get('access');
+      $manage = [];
+      if ($access('user.manage')) {
+        $manage[] = [
+          'id' => 'users',
+          'label' => 'Manage Users',
+          'link' => $url('users')
+        ];
+      }
+      if ($access('role.manage')) {
+        $manage[] = [
+          'id' => 'roles',
+          'label' => 'Manage Roles',
+          'link' => $url('roles')
+        ];
+      }
+      if ($access('permission.manage')) {
+        $manage[] = [
+          'id' => 'roles',
+          'label' => 'Manage Permissions',
+          'link' => $url('permissions')
+        ];
+      }
+      if (!empty($manage)) {
+        $navManager->addMenuItem(new DropdownNavItem([
+          'id' => 'manage',
+          'label' => 'Manage',
+          'float' => 'left',
+          'dropdown' => $manage
+        ]));
+      }
     }
-    $navManager->addMenuItems($items);
   }
 
   /**
@@ -91,17 +133,17 @@ class Module
     $controller = $event->getTarget();
     $controllerName = $event->getRouteMatch()->getParam('controller', null);
     $actionName = $event->getRouteMatch()->getParam('action', null);
+    $serviceManager = $event->getApplication()->getServiceManager();
 
     // Convert dash-style action name to camel-case.
     $actionName = str_replace('-', '', lcfirst(ucwords($actionName, '-')));
 
     // Get the instance of AuthManager service.
-    $authManager = $event->getApplication()->getServiceManager()->get(AuthManager::class);
+    $authManager = $serviceManager->get(AuthManager::class);
 
     // Execute the access filter on every controller except AuthController
     // (to avoid infinite redirect).
-    if ($controllerName != AuthController::class)
-      {
+    if ($controllerName != AuthController::class) {
       $result = $authManager->filterAccess($controllerName, $actionName);
 
       if ($result == AuthManager::AUTH_REQUIRED) {

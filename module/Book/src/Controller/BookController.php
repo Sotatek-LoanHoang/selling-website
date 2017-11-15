@@ -249,4 +249,8 @@ class BookController extends AbstractActionController
       'form' => $form
     ));
   }
+  public function searchAction()
+  {
+
+  }
 }

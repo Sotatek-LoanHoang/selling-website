@@ -44,7 +44,8 @@ class Book
   protected $releaseDate;
 
   /**
-   * @ORM\ManyToMany(targetEntity="Book\Entity\Author")
+   * Many Books have Many Authors.
+   * @ORM\ManyToMany(targetEntity="Author")
    * @ORM\JoinTable(name="book_author",
    *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
    *      inverseJoinColumns={@ORM\JoinColumn(name="author_id", referencedColumnName="id")}

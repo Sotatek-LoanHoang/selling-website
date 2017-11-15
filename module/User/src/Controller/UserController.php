@@ -115,12 +115,6 @@ class UserController extends AbstractActionController
       return;
     }
 
-    if (!$this->access('profile.any.view') &&
-      !$this->access('profile.any.manage') &&
-      !$this->access('profile.own.manage', ['user' => $user])) {
-      return $this->redirect()->toRoute('not-authorized');
-    }
-
     // Find a user with such ID.
     $user = $this->entityManager->getRepository(User::class)
       ->find($id);
@@ -128,6 +122,12 @@ class UserController extends AbstractActionController
     if ($user == null) {
       $this->getResponse()->setStatusCode(404);
       return;
+    }
+
+    if (!$this->access('profile.any.view') &&
+      !$this->access('profile.any.manage') &&
+      !$this->access('profile.own.manage', ['user' => $user])) {
+      return $this->redirect()->toRoute('not-authorized');
     }
 
     return new ViewModel([
@@ -152,6 +152,10 @@ class UserController extends AbstractActionController
     if ($user == null) {
       $this->getResponse()->setStatusCode(404);
       return;
+    }
+
+    if (!$this->access('profile.any.manage') && !$this->access('profile.own.manage', ['user' => $user])) {
+      return $this->redirect()->toRoute('not-authorized');
     }
 
     // Create user form
@@ -224,9 +228,6 @@ class UserController extends AbstractActionController
       $this->getResponse()->setStatusCode(404);
       return;
     }
-    if (!$this->access('profile.any.manage') && !$this->access('profile.own.manage', ['user' => $user])) {
-      return $this->redirect()->toRoute('not-authorized');
-    }
 
     $user = $this->entityManager->getRepository(User::class)
       ->find($id);
@@ -234,6 +235,10 @@ class UserController extends AbstractActionController
     if ($user == null) {
       $this->getResponse()->setStatusCode(404);
       return;
+    }
+
+    if (!$this->access('profile.any.manage') && !$this->access('profile.own.manage', ['user' => $user])) {
+      return $this->redirect()->toRoute('not-authorized');
     }
 
     // Create "change password" form
