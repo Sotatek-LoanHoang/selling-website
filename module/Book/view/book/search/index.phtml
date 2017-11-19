@@ -1,0 +1,45 @@
+<?php
+$this->headTitle('Search');
+
+$this->mainMenu()->setActiveItemId('search');
+
+$this->pageBreadcrumbs()->setItems([
+  'Home' => $this->url('home'),
+  'Search' => $this->url('books', ['action' => 'search']),
+]);
+?>
+
+<form>
+  <div class="input-group" action="<?= $this->url('books', ['action' => 'search']) ?>">
+    <select class="form-control" name="type">
+      <option value="all" <?= ($type == 'all') ? 'selected' : '' ?>>All</option>
+      <option value="book" <?= ($type == 'book') ? 'selected' : '' ?>>Book Title</option>
+      <option value="author" <?= ($type == 'author') ? 'selected' : '' ?>>Author Name</option>
+    </select>
+    <input type="text" name="q" class="form-control w-50"<?= isset($q) ? 'value="' . $q . '"' : '' ?>>
+    <div class="input-group-btn">
+      <button type="submit" class="form-control btn btn-primary"><span class="oi oi-magnifying-glass"></span> Search</button>
+    </div>
+  </div>
+</form>
+
+<?php if (isset($books)) : ?>
+<?php if (empty($books)) : ?>
+<div class="border border-danger rounded px-3 py-2 mt-3 mx-auto" id="search-error">
+<span class="text-danger">No result found.</span>
+</div>
+<?php else : ?>
+  <div class="card-columns mt-3">
+    <?php foreach ($books as $book) : ?>
+    <a class="card text-dark" href="<?= $this->url('books', ['action' => 'view', 'id' => $book->getId()]); ?>">
+      <img class="card-img-top" src="https://images-na.ssl-images-amazon.com/images/I/51Mk2eEHHaL._SX129_.jpg">
+      <div class="card-body">
+        <h4 class="card-title text-primary"><?= $book->getTitle() ?></h4>
+        <p class="card-text text-truncate"><?= $book->getDescription() ?>></p>
+      </div>
+    </a>
+    <?php endforeach ?>
+  </div>
+<?php
+endif;
+endif;

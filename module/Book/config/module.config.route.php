@@ -35,6 +35,16 @@ return [
           ],
         ],
       ],
+      'search' => [
+        'type' => Literal::class,
+        'options' => [
+          'route' => '/search',
+          'defaults' => [
+            'controller' => Controller\SearchController::class,
+            'action' => 'index',
+          ],
+        ],
+      ],
     ],
   ],
 ];

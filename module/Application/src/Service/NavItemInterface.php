@@ -1,7 +1,9 @@
 <?php
 namespace Application\Service;
 
-interface NavItemInterface
+use Application\Service\NavComponentInterface;
+
+interface NavItemInterface extends NavComponentInterface
 {
   function getId();
   function getFloat();

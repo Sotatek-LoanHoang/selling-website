@@ -32,4 +32,5 @@ return [
   'Application',
   'User',
   'Book',
+  'Cart',
 ];

@@ -12,15 +12,10 @@ use Application\Service\NavManager;
  */
 class MenuFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
-    {
-        $navManager = $container->get(NavManager::class);
-        
-        // Get menu items.
-        $items = $navManager->getMenuItems();
-        
-        // Instantiate the helper.
-        return new Menu($items);
-    }
+  public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+  {
+    // Instantiate the helper.
+    return new Menu($container->get(NavManager::class));
+  }
 }
 

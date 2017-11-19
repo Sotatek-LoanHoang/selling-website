@@ -1,11 +1,14 @@
 <?php
 namespace Application\Service;
 
+use Application\Service\NavComponentInterface;
+
+
 /**
  * This service is responsible for determining which items should be in the main menu.
  * The items may be different depending on whether the user is authenticated or not.
  */
-class NavManager
+class NavManager implements NavComponentInterface
 {
   /**
    * Menu items
@@ -64,6 +67,44 @@ class NavManager
   public function getMenuItems()
   {
     return $this->menuItems;
+  }
+
+  public function render()
+  {
+    if (count($this->menuItems) == 0)
+      return ''; // Do nothing if there are no items.
+
+    $result = '<nav class="navbar navbar-expand-md navbar-light bg-light">';
+    $result .= '<button class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent">';
+    $result .= '<span class="navbar-toggler-icon"></span>';
+    $result .= '</button>';
+    $result .= '<div class="collapse navbar-collapse" id="navbarSupportedContent">';
+    $result .= '<a class="navbar-brand" href="/">Bookstore</a>';
+    $result .= '<ul class="navbar-nav">';
+    // if (isset($this->activeItemId) && !empty($this->activeItemId)) {
+    //   if (isset($this->menuItems[$this->activeItemId]))
+    //     $this->menuItems[$this->activeItemId]->setActive(true);
+    // }
+  // Render items
+    foreach ($this->menuItems as $item) {
+      if ($item->getFloat() == 'left')
+        $result .= $item->render();
+    }
+
+    $result .= '</ul>';
+    $result .= '<ul class="navbar-nav ml-auto">';
+
+  // Render items
+    foreach ($this->menuItems as $item) {
+      if ($item->getFloat() == 'right')
+        $result .= $item->render();
+    }
+
+    $result .= '</ul>';
+    $result .= '</div>';
+    $result .= '</nav>';
+
+    return $result;
   }
 }
 

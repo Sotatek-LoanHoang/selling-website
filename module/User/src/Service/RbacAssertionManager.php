@@ -35,7 +35,6 @@ class RbacAssertionManager
    */
   public function assert(Rbac $rbac, $permission, $params)
   {
-    error_log('adsfasf');
     $currentUser = $this->entityManager->getRepository(User::class)
       ->findOneByUsername($this->authService->getIdentity());
 

@@ -8,11 +8,14 @@ return [
     'controllers' => [
       Controller\BookController::class => [
         ['actions' => ['index', 'add', 'edit'], 'allow' => '+book.manage'],
-        ['actions' => ['view', 'search'], 'allow' => '*'],
+        ['actions' => ['view'], 'allow' => '*'],
       ],
       Controller\AuthorController::class => [
         ['actions' => ['index', 'add', 'edit'], 'allow' => '+book.manage'],
         ['actions' => ['view'], 'allow' => '*'],
+      ],
+      Controller\SearchController::class => [
+        ['actions' => ['index'], 'allow' => '*'],
       ],
     ]
   ],

@@ -9,10 +9,10 @@ use Zend\View\Helper\AbstractHelper;
 class Menu extends AbstractHelper
 {
   /**
-   * Menu items array.
+   * Nav manager.
    * @var array
    */
-  protected $items = [];
+  protected $navManager = [];
 
   /**
    * Active item's ID.
@@ -22,20 +22,10 @@ class Menu extends AbstractHelper
 
   /**
    * Constructor.
-   * @param array $items Menu items.
    */
-  public function __construct($items = [])
+  public function __construct($navManager)
   {
-    $this->items = $items;
-  }
-
-  /**
-   * Sets menu items.
-   * @param array $items Menu items.
-   */
-  public function setItems($items)
-  {
-    $this->items = $items;
+    $this->navManager = $navManager;
   }
 
   /**
@@ -53,40 +43,6 @@ class Menu extends AbstractHelper
    */
   public function render()
   {
-    if (count($this->items) == 0)
-      return ''; // Do nothing if there are no items.
-
-    $result = '<nav class="navbar navbar-expand-md navbar-light bg-light">';
-    $result .= '<button class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent">';
-    $result .= '<span class="navbar-toggler-icon"></span>';
-    $result .= '</button>';
-    $result .= '<div class="collapse navbar-collapse" id="navbarSupportedContent">';
-    $result .= '<a class="navbar-brand" href="/">Bookstore</a>';
-    $result .= '<ul class="navbar-nav">';
-    if (isset($this->activeItemId) && !empty($this->activeItemId)) {
-      if (isset($this->items[$this->activeItemId]))
-        $this->items[$this->activeItemId]->setActive(true);
-    }
-    // Render items
-    foreach ($this->items as $item) {
-      if ($item->getFloat() == 'left')
-        $result .= $item->render();
-    }
-
-    $result .= '</ul>';
-    $result .= '<ul class="navbar-nav ml-auto">';
-
-    // Render items
-    foreach ($this->items as $item) {
-      if ($item->getFloat() == 'right')
-        $result .= $item->render();
-    }
-
-    $result .= '</ul>';
-    $result .= '</div>';
-    $result .= '</nav>';
-
-    return $result;
-
+    return $this->navManager->render();
   }
 }
