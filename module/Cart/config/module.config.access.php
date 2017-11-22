@@ -7,7 +7,7 @@ return [
   'access_filter' => [
     'controllers' => [
       Controller\CartController::class => [
-        ['actions' => ['index'], 'allow' => '@'],
+        ['actions' => ['index','add','delete', 'update'], 'allow' => '@'],
       ],
     ]
   ],

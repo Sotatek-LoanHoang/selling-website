@@ -289,9 +289,9 @@ class UserManager
     $subject = 'Password Reset';
 
     $httpHost = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost';
-    $passwordResetUrl = 'http://' . $httpHost . '/set-password?token=' . $token;
+    $passwordResetUrl = 'http://' . $httpHost . 'users/set-password?token=' . $token;
 
-    $body = 'Please follow the link below to reset your password:\n';
+    $body = "Please follow the link below to reset your password:\n";
     $body .= "$passwordResetUrl\n";
     $body .= "If you haven't asked to reset your password, please ignore this message.\n";
 
@@ -398,9 +398,9 @@ class UserManager
     $subject = 'Account Activation';
 
     $httpHost = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost';
-    $passwordResetUrl = 'http://' . $httpHost . '/activate?token=' . $token;
+    $passwordResetUrl = 'http://' . $httpHost . '/users/activate?token=' . $token;
 
-    $body = 'Please follow the link below to activate your account:\n';
+    $body = "Please follow the link below to activate your account:\n";
     $body .= "$passwordResetUrl\n";
 
     // Send email to user.

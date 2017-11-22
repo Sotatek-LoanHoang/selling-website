@@ -234,6 +234,7 @@ class BookController extends AbstractActionController
 
       $form->setData(array(
         'title' => $book->getTitle(),
+        'price' => $book->getPrice(),
         'description' => $book->getDescription(),
         'publisher' => $book->getPublisher(),
         'releaseDate' => $book->getReleaseDate(),

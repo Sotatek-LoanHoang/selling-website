@@ -1,15 +1,18 @@
 <?php
 namespace Cart;
 
-use Zend\Router\Http\Literal;
+use Zend\Router\Http\Segment;
 
 return [
   'router' => [
     'routes' => [
-      'search' => [
-        'type' => Literal::class,
+      'cart' => [
+        'type' => Segment::class,
         'options' => [
-          'route' => '/cart',
+          'route' => '/cart[/:action]',
+          'constraints' => [
+            'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+          ],
           'defaults' => [
             'controller' => Controller\CartController::class,
             'action' => 'index',

@@ -7,7 +7,10 @@
  */
 
 namespace Book;
-
+use Zend\Mvc\MvcEvent;
+use Application\Service\NavManager;
+use Application\Service\StaticNavItem;
+use Application\Service\DropdownNavItem;
 class Module
 {
   /**
@@ -24,5 +27,36 @@ class Module
       include __DIR__ . '/../config/module.config.service.php',
       include __DIR__ . '/../config/module.config.view.php'
     );
+  }
+  public function onBootstrap(MvcEvent $event) {
+    $serviceManager = $event->getApplication()->getServiceManager();
+    $navManager = $serviceManager->get(NavManager::class);
+    $authService = $serviceManager->get(\Zend\Authentication\AuthenticationService::class);
+    $url = $serviceManager->get('ViewHelperManager')->get('url');
+
+
+    $access = $serviceManager->get('ViewHelperManager')->get('access');
+    $manage = [];
+    if ($access('book.manage')) {
+      $manage[] = [
+        'id' => 'bookManage',
+        'label' => 'Manage Books',
+        'link' => $url('books')
+      ];
+
+      $manage[] = [
+        'id' => 'authorManage',
+        'label' => 'Manage Authors',
+        'link' => $url('authors')
+      ];
+    }
+    if (!empty($manage)) {
+      $navManager->addMenuItem(new DropdownNavItem([
+        'id' => 'manageBookDropdown',
+        'label' => 'Manage Product',
+        'float' => 'left',
+        'dropdown' => $manage
+      ]));
+    }
   }
 }

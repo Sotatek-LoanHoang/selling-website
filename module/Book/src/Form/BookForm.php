@@ -25,6 +25,15 @@ class BookForm extends Form
       ],
     ]);
 
+      // Add "price" field
+    $this->add([
+      'type' => 'number',
+      'name' => 'price',
+      'options' => [
+        'label' => 'Price',
+      ],
+    ]);
+
     // Add "description" field
     $this->add([
       'type' => 'textarea',

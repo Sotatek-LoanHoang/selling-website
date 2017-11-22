@@ -28,6 +28,17 @@ $this->headTitle('Thank You');
 <p>
     Return to <a href="<?= $this->url('login'); ?>">login page</a>.
 </p>
+<?php elseif ($id == 'activate-success') : ?>
+<?php
+$this->headTitle('Thank You');
+?>
+<h1>New Password</h1>
+<p>
+    Your new account has been activated successfully.
+</p>
+<p>
+    Go to <a href="<?= $this->url('login'); ?>">login page</a>.
+</p>
 <?php elseif ($id == 'failed') : ?>
 <?php
 $this->headTitle('Error');

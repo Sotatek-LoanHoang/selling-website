@@ -14,12 +14,15 @@ class CartController extends AbstractActionController
    */
   private $entityManager;
 
+  private $cartManager;
+
   /**
    * Constructor
    */
-  public function __construct($entityManager)
+  public function __construct($entityManager, $cartManager)
   {
     $this->entityManager = $entityManager;
+    $this->cartManager = $cartManager;
   }
 
   /**
@@ -28,6 +31,45 @@ class CartController extends AbstractActionController
    */
   public function indexAction()
   {
-    $cartItems = $this->entityManager->getRepository(CartItem::class)->findByUser($this->currentUser());
+    $items = $this->entityManager->getRepository(CartItem::class)->findByUser($this->currentUser());
+    return new ViewModel([
+      'items'=>$items
+    ]);
+  }
+
+  public function addAction()
+  {
+    $data = $this->params()->fromQuery();
+    $item = $this->entityManager->getRepository(CartItem::class)->findBy(['user'=>$this->currentUser()->getId(),
+    'book'=>$data['book']]);
+    if (count($item) == 1) {
+      $this->cartManager->updateCartItem($item[0],['quantity'=>$item[0]->getQuantity()+$data['quantity']]);
+    } else {
+      $this->cartManager->addCartItem($data,$this->currentUser());
+    }
+    return $this->redirect()->toRoute('cart',['action'=>'index']);
+  }
+
+  public function deleteAction()
+  {
+    $data = $this->params()->fromQuery();
+    $item = $this->entityManager->getRepository(CartItem::class)->findBy(['user_id'=>$this->currentUser()->getId(),
+    'book_id'=>$data['book']]);
+    if (count($item) == 1) {
+      $this->cartManager->deleteCartItem($item[0]);
+    }
+  }
+
+  public function updateAction()
+  {
+    $data = $this->params()->fromQuery();
+    $item = $this->entityManager->getRepository(CartItem::class)->findBy(['user'=>$this->currentUser()->getId(),
+    'book'=>$data['book']]);
+    if (count($item) == 1) {
+      $this->cartManager->updateCartItem($item[0],['quantity'=>$data['quantity']]);
+    } else {
+      $this->cartManager->addCartItem($data,$this->currentUser());
+    }
+    return $this->redirect()->toRoute('cart',['action'=>'index']);
   }
 }

@@ -1,0 +1,26 @@
+<?php
+$this->headTitle('Cart');
+?>
+<?php foreach ($items as $item): ?>
+<div class="list-group w-100">
+<div class="list-group-item list-group-item-action d-sm-flex align-items-start">
+<img src="..." width="100px" height="100px">
+<div class="mr-auto ml-3">
+<h3 class="mb-1 mr-auto"><?= $item->getBook()->getTitle() ?></h3>
+<p class="mb-1 text-success"><?= '$'.($item->getBook()->getPrice()*$item->getQuantity()) ?></p>
+</div>
+
+<form action="<?= $this->url('cart',['action'=>'update'])?>">
+Quantity:
+<div class="input-group mt-2">
+  <input type="tel" class="form-control" style="width:40px;" value="<?=$item->getQuantity()?>" name="quantity">
+  <input name="book" value="<?= $item->getBook()->getId()?>" type="hidden">
+  <span class="input-group-btn">
+    <button class="btn btn-primary btn-block" type="submit">
+       Update</button>
+  </span>
+</div>
+</form>
+</div>
+</div>
+<?php endforeach; ?>

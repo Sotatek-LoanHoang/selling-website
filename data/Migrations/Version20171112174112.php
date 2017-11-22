@@ -16,6 +16,7 @@ class Version20171112174112 extends AbstractMigration
     $table = $schema->createTable('book');
     $table->addColumn('id', 'integer', ['autoincrement' => true]);
     $table->addColumn('title', 'string', ['notnull' => true, 'length' => 64]);
+    $table->addColumn('base_price', 'integer', ['notnull' => true]);
     $table->addColumn('description', 'string', ['notnull' => false, 'length' => 128]);
     $table->addColumn('publisher', 'string', ['notnull' => false, 'length' => 128]);
     $table->addColumn('print_length', 'integer', ['notnull' => false]);

@@ -339,7 +339,7 @@ class UserController extends AbstractActionController
     $id = (string)$this->params()->fromRoute('id');
 
     // Validate input argument.
-    if ($id != 'invalid-email' && $id != 'sent' && $id != 'set' && $id != 'failed' && $id != 'activate-failed' && $id != 'email-sent') {
+    if ($id != 'invalid-email' && $id != 'sent' && $id != 'set' && $id != 'failed' && $id != 'activate-failed' && $id != 'email-sent' && $id != 'activate-success') {
       throw new \Exception('Invalid message ID specified');
     }
 
@@ -463,7 +463,10 @@ class UserController extends AbstractActionController
         ['action' => 'message', 'id' => 'activate-failed']
       );
     }
-    return $this->redirect()->toRoute('home');
+    return $this->redirect()->toRoute(
+      'users',
+      ['action' => 'message', 'id' => 'activate-success']
+    );
   }
 }
 

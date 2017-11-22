@@ -66,6 +66,12 @@ class Module
         'link' => $url('login'),
         'float' => 'right'
       ]));
+      $navManager->addMenuItem(new StaticNavItem([
+        'id' => 'signup',
+        'label' => 'Sign up',
+        'link' => $url('users',['action'=>'signup']),
+        'float' => 'right'
+      ]));
     } else {
       $user = $serviceManager->get(EntityManager::class)->getRepository(User::class)->findOneByUsername($authService->getIdentity());
       $name = (!empty($user->getFullName())) ? $user->getFullName() : $authService->getIdentity();

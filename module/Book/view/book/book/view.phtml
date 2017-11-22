@@ -20,9 +20,10 @@ $this->mainMenu()->setActiveItemId('books');
     <div>
       <img class="d-block mx-auto" src="https://images-na.ssl-images-amazon.com/images/I/518CruE4FjL._SX129_.jpg">
     </div>
-    <form>
+    <form action="<?= $this->url('cart',['action'=>'add'])?>">
       <div class="input-group mt-2">
-        <input type="tel" class="form-control" style="width:40px;" value="1">
+        <input type="tel" class="form-control" style="width:40px;" value="1" name="quantity">
+        <input name="book" value="<?= $book->getId()?>" type="hidden">
         <span class="input-group-btn">
           <button class="btn btn-primary btn-block" type="submit">
             <span class="oi oi-cart"></span> Add to cart</button>
@@ -50,7 +51,7 @@ $this->mainMenu()->setActiveItemId('books');
         foreach ($series as $s) {
           $seriesLink[] = '<a href="' . $this->url('genres', ['action' => 'view', 'id' => $s->getId()]) . '">' . $s->getName() . '</a>';
         }
-        echo 'Series: ' . implode($genresLink, ', ');
+        echo 'Series: ' . implode($seriesLink, ', ');
       } else {
         echo 'Standalone';
       } ?>
@@ -61,7 +62,7 @@ $this->mainMenu()->setActiveItemId('books');
       if (!$genres->isEmpty()) {
         $genresLink = [];
         foreach ($genres as $genre) {
-          $genresLink[] = '<a href="' . $this->url('genres', ['action' => 'view', 'id' => $genre->getId()]) . '">' . $genre->getName() . '</a>';
+          $genresLink[] = $genre->getName();
         }
         echo 'Genre: ' . implode($genresLink, ', ');
       } ?>

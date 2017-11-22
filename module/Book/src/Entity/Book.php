@@ -44,6 +44,11 @@ class Book
   protected $releaseDate;
 
   /**
+   * @ORM\Column(name="base_price")
+   */
+  protected $price;
+
+  /**
    * Many Books have Many Authors.
    * @ORM\ManyToMany(targetEntity="Author")
    * @ORM\JoinTable(name="book_author",
@@ -169,6 +174,24 @@ class Book
   public function setReleaseDate($releaseDate)
   {
     $this->releaseDate = $releaseDate;
+  }
+
+  /**
+   * Returns release date.
+   * @return string
+   */
+  public function getPrice()
+  {
+    return $this->price;
+  }
+
+  /**
+   * Sets release date.
+   * @param string $releaseDate
+   */
+  public function setPrice($price)
+  {
+    $this->price = $price;
   }
 
   /**
