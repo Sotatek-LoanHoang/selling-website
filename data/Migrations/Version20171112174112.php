@@ -121,3 +121,4 @@ class Version20171112174112 extends AbstractMigration
     $schema->dropTable('book_genre');
   }
 }
+ 
